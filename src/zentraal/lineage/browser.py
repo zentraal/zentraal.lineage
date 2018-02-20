@@ -5,6 +5,13 @@ from plone.app.layout.analytics import view
 
 
 class AnalyticsViewlet(view.AnalyticsViewlet):
+    
+    @property
+    def current_childSite(self):
+        portal_state = self.context.restrictedTraverse('plone_portal_state')
+        root_path = portal_state.navigation_root_path()
+        nav_root = self.context.restrictedTraverse(root_path)
+        return nav_root
 
     def render(self):
         """render the webstats snippet"""
@@ -13,8 +20,8 @@ class AnalyticsViewlet(view.AnalyticsViewlet):
         lineageutils = getMultiAdapter(
             (self.context, self.request), name="lineageutils"
         )
-        current_childSite = lineageutils.current_childsite
-        if current_childSite:
+        if lineageutils.isChildSite():
+            current_childSite = self.current_childSite
             local_analytics = current_childSite.getField('analytics').get(
                 current_childSite
             )
