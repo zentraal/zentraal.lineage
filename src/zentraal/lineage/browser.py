@@ -11,12 +11,14 @@ class AnalyticsViewlet(view.AnalyticsViewlet):
         ptool = getToolByName(self.context, "portal_properties")
         snippet = safe_unicode(ptool.site_properties.webstats_js)
         lineageutils = getMultiAdapter(
-            (sel.context, self.request), name="lineageutils"
+            (self.context, self.request), name="lineageutils"
         )
         current_childSite = lineageutils.current_childsite
         if current_childSite:
-            childSite_snippet = safe_unicode(
-                self.context.getField(fname).get(self.context)
+            local_analytics = current_childSite.getField('analytics').get(
+                current_childSite
             )
+            if local_analytics:
+                snippet = safe_unicode(local_analytics)
 
-        return childSite_snippet or snippet
+        return snippet

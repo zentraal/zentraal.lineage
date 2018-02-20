@@ -24,7 +24,6 @@
       directory="profiles/default"
       description="Installs the zentraal.lineage add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.post_install"
       />
 
   <genericsetup:registerProfile
@@ -33,7 +32,6 @@
       directory="profiles/uninstall"
       description="Uninstalls the zentraal.lineage add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      post_handler=".setuphandlers.uninstall"
       />
 
 

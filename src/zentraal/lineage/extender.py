@@ -23,7 +23,11 @@ class AnalyticsLineageExtender(object):
             required=False,
             widget = atapi.TextAreaWidget(
                 label=_(u"Local Analytics Code"),
-            )
+                rows=20,
+            ),
+            default_output_type="text/html",
+            allowable_content_types="text/html",
+            default_content_type="text/html",
         ),
     ]
 
